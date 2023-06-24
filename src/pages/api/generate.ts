@@ -1,17 +1,26 @@
 // #vercel-disable-blocks
 import { ProxyAgent, fetch } from 'undici'
 // #vercel-end
+import { getRuntime } from '@astrojs/cloudflare/runtime'
 import { generatePayload, parseOpenAIStream } from '@/utils/openAI'
 import { verifySignature } from '@/utils/auth'
 import type { APIRoute } from 'astro'
 
-const apiKey = import.meta.env.OPENAI_API_KEY
-const httpsProxy = import.meta.env.HTTPS_PROXY
-const baseUrl = ((import.meta.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
-const sitePassword = import.meta.env.SITE_PASSWORD || ''
-const passList = sitePassword.split(',') || []
+// const apiKey = import.meta.env.OPENAI_API_KEY
+// const httpsProxy = import.meta.env.HTTPS_PROXY
+// const baseUrl = ((import.meta.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
+// const sitePassword = import.meta.env.SITE_PASSWORD || ''
+// const passList = sitePassword.split(',') || []
 
 export const post: APIRoute = async(context) => {
+  const runtime = getRuntime(context.request)
+
+  const apiKey = runtime.env.OPENAI_API_KEY
+  const httpsProxy = runtime.env.HTTPS_PROXY
+  const baseUrl = ((runtime.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
+  const sitePassword = runtime.env.SITE_PASSWORD || ''
+  const passList = sitePassword.split(',') || []
+
   const body = await context.request.json()
   const { sign, time, messages, pass } = body
   if (!messages) {

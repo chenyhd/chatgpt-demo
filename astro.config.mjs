@@ -60,13 +60,4 @@ export default defineConfig({
       },
     })],
   },
-  define: {
-    'process.env.OPENAI_API_KEY': JSON.stringify(process.env.OPENAI_API_KEY),
-    'process.env.HTTPS_PROXY': JSON.stringify(process.env.HTTPS_PROXY),
-    'process.env.OPENAI_API_BASE_URL': JSON.stringify(process.env.OPENAI_API_BASE_URL),
-    'process.env.HEAD_SCRIPTS': JSON.stringify(process.env.HEAD_SCRIPTS),
-    'process.env.PUBLIC_SECRET_KEY': JSON.stringify(process.env.PUBLIC_SECRET_KEY),
-    'process.env.SITE_PASSWORD': JSON.stringify(process.env.SITE_PASSWORD),
-    'process.env.OPENAI_API_MODEL': JSON.stringify(process.env.OPENAI_API_MODEL),
-  },
 })
