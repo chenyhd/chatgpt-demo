@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config'
 import unocss from 'unocss/astro'
 import solidJs from '@astrojs/solid-js'
-// import node from '@astrojs/node'
+import node from '@astrojs/node'
 import { VitePWA } from 'vite-plugin-pwa'
-// import vercel from '@astrojs/vercel/edge'
-// import netlify from '@astrojs/netlify/edge-functions'
+import vercel from '@astrojs/vercel/edge'
+import netlify from '@astrojs/netlify/edge-functions'
 import cloudflare from '@astrojs/cloudflare'
 import disableBlocks from './plugins/disableBlocks'
 
@@ -28,7 +28,7 @@ export default defineConfig({
   output: 'server',
   adapter: envAdapter(),
   vite: {
-    plugins: [process.env.OUTPUT === 'vercel' && disableBlocks(),process.env.OUTPUT === 'cloudflare' && disableBlocks(), process.env.OUTPUT === 'netlify' && disableBlocks('netlify'), process.env.OUTPUT !== 'netlify' && VitePWA({
+    plugins: [process.env.OUTPUT === 'vercel' && disableBlocks(), process.env.OUTPUT === 'cloudflare' && disableBlocks(), process.env.OUTPUT === 'netlify' && disableBlocks('netlify'), process.env.OUTPUT !== 'netlify' && VitePWA({
       registerType: 'autoUpdate',
       manifest: {
         name: 'ChatGPT-API Demo',
@@ -59,5 +59,14 @@ export default defineConfig({
         enabled: true,
       },
     })],
+  },
+  define: {
+    'process.env.OPENAI_API_KEY': JSON.stringify(process.env.OPENAI_API_KEY),
+    'process.env.HTTPS_PROXY': JSON.stringify(process.env.HTTPS_PROXY),
+    'process.env.OPENAI_API_BASE_URL': JSON.stringify(process.env.OPENAI_API_BASE_URL),
+    'process.env.HEAD_SCRIPTS': JSON.stringify(process.env.HEAD_SCRIPTS),
+    'process.env.PUBLIC_SECRET_KEY': JSON.stringify(process.env.PUBLIC_SECRET_KEY),
+    'process.env.SITE_PASSWORD': JSON.stringify(process.env.SITE_PASSWORD),
+    'process.env.OPENAI_API_MODEL': JSON.stringify(process.env.OPENAI_API_MODEL),
   },
 })
