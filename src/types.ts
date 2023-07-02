@@ -6,4 +6,5 @@ export interface ChatMessage {
 export interface ErrorMessage {
   code: string
   message: string
+  error: string
 }
