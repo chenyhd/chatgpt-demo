@@ -1,4 +1,3 @@
-import { fetch } from 'undici'
 import type { APIRoute } from 'astro'
 
 const baseUrl = import.meta.env.OPENAI_API_BASE_URL
