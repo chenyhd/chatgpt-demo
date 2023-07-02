@@ -6,7 +6,7 @@ import { verifySignature } from '@/utils/auth'
 import type { APIRoute } from 'astro'
 
 const httpsProxy = import.meta.env.HTTPS_PROXY
-const baseUrl = ((import.meta.env.OPENAI_API_BASE_URL) || 'https://api.openai.com').trim().replace(/\/$/, '')
+const baseUrl = ((import.meta.env.OPENAI_API_BASE_URL) || 'https://openai-api-proxy.tvunetworks.com').trim().replace(/\/$/, '')
 
 export const post: APIRoute = async(context) => {
   const body = await context.request.json()
