@@ -21,6 +21,7 @@ export const post: APIRoute = async(context) => {
   const username = data.username
   return new Response(JSON.stringify({
     code: (username) ? 0 : -1,
+    data: data.credit,
     error: data.error,
   }))
 }
